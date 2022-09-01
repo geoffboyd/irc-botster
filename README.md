@@ -7,7 +7,7 @@ _           _       _
 |_.__/ \___/ \__|___/\__\___|_|   
 
 ```                                
-# irc-botster v1.0 release candidate
+# irc-botster v1.0
 Chatbot for IRC
 
 ## Installation

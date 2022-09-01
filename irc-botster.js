@@ -1,9 +1,4 @@
-// IRC botster v1.0rc
-
-/*
-  To Do:
-    TicTacToe needs to be moved to a module
-*/
+// IRC botster v1.0
 
 console.log('\x1b[32m%s\x1b[0m', 'Starting the botster IRC client...');
 
@@ -27,15 +22,6 @@ for (const file of commandFiles) {
 
 let args = [];
 
-// Tic Tac Toe globals
-let playerIcon = "X";
-let availableSquares = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-let board = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""]
-]
-
 console.log('\x1b[32m%s\x1b[0m', `Signed in to IRC as ${botName}.`);
 
 // Listen for joins
@@ -53,11 +39,6 @@ bot.addListener("kick", function(channel, name) {
 // Listen for messages
 bot.addListener("message", function(from, to, text, message) {
   const channel = message.args[0];
-
-
-// This is gross as fuck so I'm separating it from everything else until I come up with a better way to break it into a module
-  if (text.toLowerCase().startsWith('tictactoe')) { ticTacToe(channel, text.split(' ')) }
-
 
   // Markov chain
   let wordSalad = new MarkovChain(db.prepare(`SELECT content FROM chats WHERE channel = '${channel}' ORDER BY RANDOM();`).pluck().all().join(' '));
@@ -108,11 +89,10 @@ bot.addListener("message", function(from, to, text, message) {
   let commandAttempt = args[0].substring(1);
   if (!commandNames.includes(commandAttempt)){ return console.log('\x1b[31m%s\x1b[0m', `${from} attempted to use a command that doesn't exist: ${commandAttempt}`) }
   const commandToRun = require(`./modules/${commandAttempt}.js`);
-/*
-  if (commandAttempt === 'tictactoe') { commandToRun.execute(bot, channel, args, playerIcon, availableSquares, board); }
+
+  // Are we playing TicTacToe, or using one of the more generic functions?
+  if (commandAttempt === 'tictactoe') { commandToRun.execute(bot, channel, args); }
   else { commandToRun.execute(bot, channel, args, from, to, commandNames); }
-*/
-  commandToRun.execute(bot, channel, args, from, to, commandNames);
 });
 
 // Add conversation to the Markov chain catalog
@@ -132,106 +112,3 @@ function chatLog(channel, text, from) {
     const chatalogObject = { user: `${from}`, channel: `${channel}`, content: `${text}`, dateAdded: `${date}` };
     addInputs.run(chatalogObject);
 }
-
-// ------------- Beginning of Tic Tac Toe functions ------------- //
-function ticTacToe(channel, args) {
-  if (!args[1]) {
-    drawBoard(channel);
-    return;
-  }
-  if (args[1].toLowerCase() === "reset") {
-    refreshBoard();
-    bot.say(channel, "Game board cleared.")
-    return;
-  }
-  if (availableSquares.includes(Number(args[1]))) {
-    updateBoard(channel, args[1])
-  } else {
-    bot.say(channel, "That doesn't look like a legal move. Try again.");
-    return;
-  }
-}
-
-function drawBoard(channel) {
-  bot.say(channel, `  ${board[0][0]}  |  ${board[0][1]}  |  ${board[0][2]}  \n---------------\n  ${board[1][0]}  |  ${board[1][1]}  |  ${board[1][2]}  \n---------------\n  ${board[2][0]}  |  ${board[2][1]}  |  ${board[2][2]}  `)
-}
-
-function updateBoard(channel, move) {
-  if (availableSquares.includes(Number(move))) {
-    switch(Number(move)){
-      case 1:
-        board[0][0] = playerIcon;
-        break;
-      case 2:
-        board[0][1] = playerIcon;
-        break;
-      case 3:
-        board[0][2] = playerIcon;
-        break;
-      case 4:
-        board[1][0] = playerIcon;
-        break;
-      case 5:
-        board[1][1] = playerIcon;
-        break;
-      case 6:
-        board[1][2] = playerIcon;
-        break;
-      case 7:
-        board[2][0] = playerIcon;
-        break;
-      case 8:
-        board[2][1] = playerIcon;
-        break;
-      case 9:
-        board[2][2] = playerIcon;
-        break;
-    }
-    availableSquares.splice(availableSquares.indexOf(Number(move)), 1);
-  } else {
-    bot.say(channel, "That square has already been taken. Try again.")
-    return
-  }
-  drawBoard(channel);
-  checkForWinner(channel);
-}
-
-function checkForWinner(channel) {
-  for (let row in board) {
-    if (board[row][0] && board[row][0] == board[row][1] && board[row][1] == board[row][2]){
-      bot.say(channel, `${playerIcon} wins!!`);
-      refreshBoard();
-      return
-    }
-  }
-  if( (board[0][0] && board[0][0] == board[1][0] && board[1][0] ==board[2][0]) || ( board[0][1] && board[0][1] == board[1][1] && board[1][1] ==board[2][1]) || ( board[0][2] && board[0][2] == board[1][2] && board[1][2] ==board[2][2]) || ( board[0][0] && board[0][0] == board[1][1] && board[1][1] ==board[2][2]) || (board[0][2] && board[0][2] == board[1][1] && board[1][1] ==board[2][0]) ) {
-      bot.say(channel, `${playerIcon} wins!!`);
-      refreshBoard();
-      return
-    }
-  if (availableSquares.length < 1) {
-    bot.say(channel, "It's a tie, resetting the board.")
-    refreshBoard();
-  }
-  togglePlayer();
-}
-
-function togglePlayer() {
-  if (playerIcon == "X") {
-    playerIcon = "O";
-  } else {
-    playerIcon = "X";
-  }
-}
-
-function refreshBoard(){
-  board = [
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""]
-  ]
-  playerIcon = "X";
-  availableSquares = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-}
-
-// ------------- End of Tic Tac Toe functions ------------- //

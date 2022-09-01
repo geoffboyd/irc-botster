@@ -1,51 +1,17 @@
-module.exports = {
-  name: 'tictactoe',
-  description: 'Play a friendly game of Tic Tac Toe',
-  execute(bot, channel, args, playerIcon, availableSquares, board) {
-    if (!args[1]) {
-      drawBoard(channel);
-      return;
-    }
-    if (args[1].toLowerCase() === "reset") {
-      refreshBoard();
-      bot.say(channel, "Game board cleared.")
-      return;
-    }
-    if (availableSquares.includes(Number(args[1]))) {
-      updateBoard(channel, args[1])
-    } else {
-      bot.say(channel, "That doesn't look like a legal move. Try again.");
-      return;
-    }
-  }
-};
+// Tic Tac Toe globals
+let playerIcon = "X";
+let availableSquares = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let board = [
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""]
+]
 
-// ------------- Beginning of Tic Tac Toe functions ------------- //
-/* main function moved up to execute()
-function ticTacToe(channel, args) {
-  if (!args[1]) {
-    drawBoard(channel);
-    return;
-  }
-  if (args[1].toLowerCase() === "reset") {
-    refreshBoard();
-    bot.say(channel, "Game board cleared.")
-    return;
-  }
-  if (availableSquares.includes(Number(args[1]))) {
-    updateBoard(channel, args[1])
-  } else {
-    bot.say(channel, "That doesn't look like a legal move. Try again.");
-    return;
-  }
-}
-*/
-
-function drawBoard(channel) {
+function drawBoard(bot, channel) {
   bot.say(channel, `  ${board[0][0]}  |  ${board[0][1]}  |  ${board[0][2]}  \n---------------\n  ${board[1][0]}  |  ${board[1][1]}  |  ${board[1][2]}  \n---------------\n  ${board[2][0]}  |  ${board[2][1]}  |  ${board[2][2]}  `)
 }
 
-function updateBoard(channel, move) {
+function updateBoard(bot, channel, move) {
   if (availableSquares.includes(Number(move))) {
     switch(Number(move)){
       case 1:
@@ -81,11 +47,11 @@ function updateBoard(channel, move) {
     bot.say(channel, "That square has already been taken. Try again.")
     return
   }
-  drawBoard(channel);
-  checkForWinner(channel);
+  drawBoard(bot, channel);
+  checkForWinner(bot, channel);
 }
 
-function checkForWinner(channel) {
+function checkForWinner(bot, channel) {
   for (let row in board) {
     if (board[row][0] && board[row][0] == board[row][1] && board[row][1] == board[row][2]){
       bot.say(channel, `${playerIcon} wins!!`);
@@ -122,4 +88,25 @@ function refreshBoard(){
   playerIcon = "X";
   availableSquares = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 }
-// ------------- End of Tic Tac Toe functions ------------- //
+
+module.exports = {
+  name: 'tictactoe',
+  description: 'Play a friendly game of Tic Tac Toe',
+  execute(bot, channel, args) {
+    if (!args[1]) {
+      drawBoard(bot, channel);
+      return;
+    }
+    if (args[1].toLowerCase() === "reset") {
+      refreshBoard();
+      bot.say(channel, "Game board cleared.")
+      return;
+    }
+    if (availableSquares.includes(Number(args[1]))) {
+      updateBoard(bot, channel, args[1])
+    } else {
+      bot.say(channel, "That doesn't look like a legal move. Try again.");
+      return;
+    }
+  }
+};
