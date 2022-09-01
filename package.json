@@ -1,7 +1,7 @@
 {
   "name": "botster",
-  "version": "0.4.0",
-  "description": "A chatbot for Discord, Twitch, and IRC",
+  "version": "1.0.0",
+  "description": "A chatbot for IRC",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
