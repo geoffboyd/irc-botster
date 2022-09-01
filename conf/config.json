@@ -1,0 +1,6 @@
+{
+  "channels": ["#ChannelName1", "#ChannelName2"],
+  "server": "irc.server.name",
+  "botName": "botster",
+  "prefix": "."
+}

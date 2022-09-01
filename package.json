@@ -1,0 +1,19 @@
+{
+  "name": "botster",
+  "version": "0.4.0",
+  "description": "A chatbot for Discord, Twitch, and IRC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "boydster",
+  "license": "MIT",
+  "dependencies": {
+    "@iamtraction/google-translate": "^1.1.2",
+    "better-sqlite3": "^7.1.1",
+    "irc": "^0.5.2",
+    "markovchain": "^1.0.2",
+    "urban-dictionary": "^3.0.2",
+    "wikijs": "^6.3.2"
+  }
+}
