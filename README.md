@@ -14,6 +14,8 @@ Chatbot for IRC
 1. Clone repo && cd into directory
 2. npm install
 3. Edit config.json file in ./conf to meet your needs
+4. node irc-botster.js
+  * Alternatively, use PM2 to run the bot in the background
 
 
 Note in case you choose to get rid of the existing database. You'll want to add a fortune, insult, or 8 ball prediction to generate the table to start collecting those things. The easiest way is just to run the insultadd command.
