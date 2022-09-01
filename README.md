@@ -7,7 +7,7 @@ _           _       _
 |_.__/ \___/ \__|___/\__\___|_|   
 
 ```                                
-# irc-botster
+# irc-botster v1.0 release candidate
 Chatbot for IRC
 
 ## Installation
@@ -18,4 +18,4 @@ Chatbot for IRC
   * Alternatively, use PM2 to run the bot in the background
 
 
-Note in case you choose to get rid of the existing database. You'll want to add a fortune, insult, or 8 ball prediction to generate the table to start collecting those things. The easiest way is just to run the insultadd command.
+Note in case you choose to get rid of the existing database: You'll want to add a fortune, insult, or 8 ball prediction to generate the table to start collecting those things. The easiest way is just to run the insultadd command.
