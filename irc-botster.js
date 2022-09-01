@@ -2,12 +2,7 @@
 
 /*
   To Do:
-    8binfo
-    8bremove
-    fcinfo
-    fcremove
-    insultinfo
-    insultremove
+    TicTacToe needs to be moved to a module
 */
 
 console.log('\x1b[32m%s\x1b[0m', 'Starting the botster IRC client...');
@@ -113,6 +108,10 @@ bot.addListener("message", function(from, to, text, message) {
   let commandAttempt = args[0].substring(1);
   if (!commandNames.includes(commandAttempt)){ return console.log('\x1b[31m%s\x1b[0m', `${from} attempted to use a command that doesn't exist: ${commandAttempt}`) }
   const commandToRun = require(`./modules/${commandAttempt}.js`);
+/*
+  if (commandAttempt === 'tictactoe') { commandToRun.execute(bot, channel, args, playerIcon, availableSquares, board); }
+  else { commandToRun.execute(bot, channel, args, from, to, commandNames); }
+*/
   commandToRun.execute(bot, channel, args, from, to, commandNames);
 });
 
@@ -234,4 +233,5 @@ function refreshBoard(){
   playerIcon = "X";
   availableSquares = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 }
+
 // ------------- End of Tic Tac Toe functions ------------- //
