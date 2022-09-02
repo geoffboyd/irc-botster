@@ -3,7 +3,7 @@ module.exports = {
   description: 'Delete an item from the randomizer by row ID number',
   execute(bot, channel, text, type) {
     const SQLite = require("better-sqlite3");
-    const db = new SQLite('/home/pi/botster/userinputs.sqlite');
+    const db = new SQLite('./db/userinputs.sqlite');
     let args = text.split(' ');
     // Check if the table "userinputs" exists.
     const table = db.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'userinputs';").get();
@@ -15,16 +15,15 @@ module.exports = {
       db.pragma("synchronous = 1");
       db.pragma("journal_mode = wal");
     }
-    if (isNaN(args[1])) {
-      bot.say(channel, "You didn't enter an ID number");
+
+    if (isNaN(args[1])) { return bot.say(channel, "You didn't enter an ID number"); }
+
+    const item = db.prepare(`SELECT * FROM userinputs WHERE row=${args[1]}`).get();
+    if (item['channel'] === channel) {
+      db.prepare("DELETE FROM userinputs WHERE row = ?").run(args[1]);
+      bot.say(channel, 'Item deleted!');
     } else {
-      const item = db.prepare("SELECT * FROM userinputs WHERE row = ?;").get(args[1]);
-      if (item.channel === channel) {
-        db.prepare("DELETE FROM userinputs WHERE row = ?").run(args[1]);
-        bot.say(channel, 'Item deleted!');
-      } else {
-        bot.say(channel, "I can't delete that. You selected an item from a different chat.");
-      }
+      bot.say(channel, "I can't delete that. You selected an item from a different chat.");
     }
   }
 };
