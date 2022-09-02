@@ -3,7 +3,7 @@
 module.exports = {
   name: 'jargon',
   description: 'Generate some funny jargon, courtesy of u/SteveTenants',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
     let types = {};
     types['technical'] = {
         message: 'Need some dialogue for your Hollywood thriller screenplay? Press the button for some tech jargon!',
@@ -160,7 +160,6 @@ module.exports = {
             "Remember when my {0} {3} my {2}? Well, today they {1} {3} it too, so I can't {4} it."
         ]
     }
-    let text = args.join(' ');
     let jargonType = text.includes('tech') ? 'technical'
                     : text.includes('audio') ? 'audio'
                     : 'excuse'

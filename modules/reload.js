@@ -1,7 +1,8 @@
 module.exports = {
 	name: 'reload',
 	description: 'Reloads a command',
-	execute(bot, channel, args, from, to, commandNames) {
+	execute(bot, channel, text, from, to, commandNames) {
+		let args = text.split(' ');
 		const command = args[1].toLowerCase();
 
 		if (!commandNames.includes(command)) {

@@ -1,11 +1,12 @@
 module.exports = {
   name: 'ud',
   description: 'Urban Dictionary lookup',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
+    let args = text.split(' ');
     const ud = require('urban-dictionary');
     const wiki = require('wikijs').default;
     args.shift();
-    let text = args.join(' ');
+    text = args.join(' ');
     ud.define(text, (error, results) => {
       if (error) {
         bot.say(channel, 'Oops, something went wrong');

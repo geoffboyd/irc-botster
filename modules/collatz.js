@@ -1,7 +1,8 @@
 module.exports = {
   name: 'collatz',
   description: 'A solver for the Collatz conjecture',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
+    let args = text.split(' ');
     let n = NaN;
   	let numberArray = [];
 

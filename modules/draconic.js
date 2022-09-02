@@ -1,7 +1,7 @@
 module.exports = {
   name: 'draconic',
   description: 'English to Draconic translator',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
     const SQLite = require("better-sqlite3");
     const fantasylang = new SQLite('./db/fantasylanguages.db');
     // Check if the table "fantasylanguages" exists.
@@ -14,6 +14,7 @@ module.exports = {
       fantasylang.pragma("synchronous = 1");
       fantasylang.pragma("journal_mode = wal");
     }
+    let args = text.split(' ');
     args.shift();
     text = args.join(' ').toLowerCase().replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ");;
     let words = text.split(' ');

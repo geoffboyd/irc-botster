@@ -1,9 +1,10 @@
 module.exports = {
   name: 'randDelete',
   description: 'Delete an item from the randomizer by row ID number',
-  execute(bot, channel, args, type) {
+  execute(bot, channel, text, type) {
     const SQLite = require("better-sqlite3");
     const db = new SQLite('/home/pi/botster/userinputs.sqlite');
+    let args = text.split(' ');
     // Check if the table "userinputs" exists.
     const table = db.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'userinputs';").get();
     if (!table['count(*)']) {

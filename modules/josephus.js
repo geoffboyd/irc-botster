@@ -1,10 +1,11 @@
 module.exports = {
   name: 'josephus',
   description: 'A solver for the Josephus Problem',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
     let n = NaN;
     let skips = 1;
     let numberArray = [];
+    let args = text.split(' ');
 
     if (!args[1] || args[3]) {
       return bot.say(channel, 'Usage: .josephus [number of people] [number of skips (optional)]');

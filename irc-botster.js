@@ -36,7 +36,7 @@ console.log('\x1b[32m%s\x1b[0m', `Signed in to IRC as ${botName}.`);
 // Listen for joins
 bot.addListener("join", function(channel, name) {
   let thisCommand = require(`./modules/fortune.js`);
-  return thisCommand.execute(bot, channel, [' fortune'], name,  '');
+  return thisCommand.execute(bot, channel, '.fortune for me', name,  '');
 });
 
 // Listen for kicks
@@ -101,7 +101,7 @@ bot.addListener("message", function(from, to, text, message) {
 
   // Are we playing TicTacToe, or using one of the more generic functions?
   if (commandAttempt === 'tictactoe') { commandToRun.execute(bot, channel, args); }
-  else { commandToRun.execute(bot, channel, args, from, to, commandNames); }
+  else { commandToRun.execute(bot, channel, text, from, to, commandNames); }
 });
 
 // Add conversation to the Markov chain catalog

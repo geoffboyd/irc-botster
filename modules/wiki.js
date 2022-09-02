@@ -1,10 +1,11 @@
 module.exports = {
   name: 'wiki',
   description: 'Wikipedia lookup',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
+    let args = text.split(' ');
     const wiki = require('wikijs').default;
     args.shift();
-    let text = args.join(' ');
+    text = args.join(' ');
     wiki()
         .page(text)
         .then(page =>

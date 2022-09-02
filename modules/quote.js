@@ -1,9 +1,10 @@
 module.exports = {
   name: 'quote',
   description: 'Seach chat history for a quote',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
     const SQLite = require("better-sqlite3");
     const db = new SQLite('./db/userinputs.sqlite');
+    let args = text.split(' ');
     args.shift();
     let quote = args.join(' ');
     let search = db.prepare(`SELECT * FROM chats WHERE (channel = '${channel}' AND content LIKE '%${quote}%') ORDER BY RANDOM() LIMIT 1;`).get();

@@ -1,7 +1,7 @@
 module.exports = {
   name: 'randInfo',
   description: 'Get info on the last item used from the randomizer',
-  execute(bot, channel, args, type) {
+  execute(bot, channel, text, type) {
     const SQLite = require("better-sqlite3");
     const db = new SQLite('./db/userinputs.sqlite');
     // Check if the table "userinputs" exists and has content from this channel.

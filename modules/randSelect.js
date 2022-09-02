@@ -1,10 +1,10 @@
 module.exports = {
   name: 'randSelect',
   description: 'Select an item from the randomizer',
-  execute(bot, channel, args, from, to) {
-    // function originally wanted: channel(!), command(!), type(!), response(!), args(!), from(!)
+  execute(bot, channel, text, from, to) {
     const SQLite = require("better-sqlite3");
     const db = new SQLite('./db/userinputs.sqlite');
+    let args = text.split(' ');
     const command = args[0].substring(1);
     const type =
       command === 'insult' ? 'insult'

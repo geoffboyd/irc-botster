@@ -1,7 +1,8 @@
 module.exports = {
     name: 'wookiee',
     description: 'Translate text into Wookiee',
-    execute(bot, channel, args, from, to) {
+    execute(bot, channel, text, from, to) {
+      let args = text.split(' ');
       args.shift();
     	let charCodes=new Array(55);
   		charCodes["a"]="ra";

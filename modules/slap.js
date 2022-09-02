@@ -2,7 +2,8 @@ module.exports = {
   // This needs to be moved to sqlite3 along with the rest of the randomizer stuff
   name: 'slap',
   description: 'Give a friend a hearty slap',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
+    let args = text.split(' ');
     const slaps = [`You slap ${args[1]} around a bit with a large trout`,
                    `You slap ${args[1]} with a large smelly trout`,
                    `You break out the slapping rod and look sternly at ${args[1]}`,

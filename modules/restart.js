@@ -1,7 +1,7 @@
 module.exports = {
   name: 'restart',
   description: 'Restart the bot',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
 
     exec('pm2 start irc-botster', (error, stdout, stderr) => {
       if (error) {

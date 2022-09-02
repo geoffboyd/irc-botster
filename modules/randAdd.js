@@ -1,9 +1,10 @@
 module.exports = {
   name: 'randAdd',
   description: 'Add something to the randomizer',
-  execute(bot, channel, args, from, to) {
+  execute(bot, channel, text, from, to) {
     const SQLite = require("better-sqlite3");
     const db = new SQLite('./db/userinputs.sqlite');
+    let args = text.split(' ');
     const command = args[0].substring(1);
     const type =
       command === 'insultadd' ? 'insult'
@@ -25,11 +26,11 @@ module.exports = {
       db.pragma('synchronous = 1');
       db.pragma('journal_mode = wal');
     }
-    let addInputs = db.prepare('INSERT INTO userinputs (user, channel, type, content, lastUsed) VALUES (@user, @channel, @type, @content, @lastUsed);');
+    let addInputs = db.prepare('INSERT INTO userinputs (user, channel, type, content, lastUsed, dateAdded) VALUES (@user, @channel, @type, @content, @lastUsed, @dateAdded);');
     let date = Math.floor(new Date() / 1000);
     args.shift();
     newRand = args.join(' ');
-    const randObject = { user: `${from}`, channel: `${channel}`, type: `${type}`, content: `${newRand}`, lastUsed: `${date}` };
+    const randObject = { user: `${from}`, channel: `${channel}`, type: `${type}`, content: `${newRand}`, lastUsed: `${date}`, dateAdded: `${date}` };
     if (newRand.length > 0) {
       addInputs.run(randObject);
       bot.say(channel, `A new ${response} has been added!`);

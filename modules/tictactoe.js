@@ -92,7 +92,8 @@ function refreshBoard(){
 module.exports = {
   name: 'tictactoe',
   description: 'Play a friendly game of Tic Tac Toe',
-  execute(bot, channel, args) {
+  execute(bot, channel, text) {
+    let args = text.split(' ');
     if (!args[1]) {
       drawBoard(bot, channel);
       return;
