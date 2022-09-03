@@ -94,8 +94,8 @@ bot.addListener("message", function(from, to, text, message) {
     return thisCommand.execute(bot, channel, text.split(' '), from, to);
   }
 
-  args = text.trim().toLowerCase().split(' ');
-  let commandAttempt = args[0].substring(1);
+  lowerCaseArgs = text.trim().toLowerCase().split(' ');
+  let commandAttempt = lowerCaseArgs[0].substring(1);
   if (!commandNames.includes(commandAttempt)){ return console.log('\x1b[31m%s\x1b[0m', `${from} attempted to use a command that doesn't exist: ${commandAttempt}`) }
   const commandToRun = require(`./modules/${commandAttempt}.js`);
 
