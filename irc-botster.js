@@ -64,7 +64,7 @@ bot.addListener("message", function(from, to, text, message) {
     if (randomFuckery !== 10 && !triggerWords.some(e => text.toLowerCase().includes(e))) { return };
   }
 
-  if (text.toLowerCase().includes(botName.toLowerCase()) || randomFuckery === 10) {
+  if (!text.startsWith(prefix) && (text.toLowerCase().includes(botName.toLowerCase()) || randomFuckery === 10)) {
     //Markov chain triggers here
     let args = text.split(' ');
     let startWord = from;
