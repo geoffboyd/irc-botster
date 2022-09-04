@@ -24,7 +24,7 @@ Note in case you choose to get rid of the existing database: You'll want to add 
 
 MIT License
 
-Copyright (c) 2019 StuartIanNaylor
+Copyright (c) 2022 Geoff Boyd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
